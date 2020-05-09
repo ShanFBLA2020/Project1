@@ -1,0 +1,184 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.2
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: May 09, 2020 at 12:51 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.2.26
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `contact`
+--
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAllProducts` ()  BEGIN
+    SELECT *  FROM servicehours;
+END$$
+
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `awardcriteria`
+--
+
+CREATE TABLE `awardcriteria` (
+  `id` int(6) UNSIGNED NOT NULL,
+  `awardname` varchar(100) NOT NULL,
+  `effectivedate` date NOT NULL,
+  `svchours` varchar(30) NOT NULL,
+  `modifydate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `awardcriteria`
+--
+
+INSERT INTO `awardcriteria` (`id`, `awardname`, `effectivedate`, `svchours`, `modifydate`) VALUES
+(1, 'Gold Award', '2020-01-01', '500', '2020-03-08 21:09:55'),
+(2, 'Silver Award', '2020-01-01', '300', '2020-03-08 15:07:04'),
+(4, 'Bronze Award', '2020-01-01', '150', '2020-03-08 21:11:56');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contactme`
+--
+
+CREATE TABLE `contactme` (
+  `id` int(6) UNSIGNED NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `phone` varchar(15) DEFAULT NULL,
+  `reachmeon` varchar(20) DEFAULT NULL,
+  `subject` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `servicehours`
+--
+
+CREATE TABLE `servicehours` (
+  `id` int(6) UNSIGNED NOT NULL,
+  `student_id` int(11) DEFAULT NULL,
+  `servicedate` date NOT NULL,
+  `servicehours` float DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student`
+--
+
+CREATE TABLE `student` (
+  `student_id` int(11) NOT NULL,
+  `student_name` varchar(200) DEFAULT NULL,
+  `student_number` varchar(15) DEFAULT NULL,
+  `student_grade` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `created_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+--
+-- Indexes for table `awardcriteria`
+--
+ALTER TABLE `awardcriteria`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `contactme`
+--
+ALTER TABLE `contactme`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `servicehours`
+--
+ALTER TABLE `servicehours`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `student`
+--
+ALTER TABLE `student`
+  ADD PRIMARY KEY (`student_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `awardcriteria`
+--
+ALTER TABLE `awardcriteria`
+  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `contactme`
+--
+ALTER TABLE `contactme`
+  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `servicehours`
+--
+ALTER TABLE `servicehours`
+  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `student`
+--
+ALTER TABLE `student`
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
